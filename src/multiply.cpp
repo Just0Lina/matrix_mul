@@ -21,13 +21,13 @@ void multiply2(double *A, double *B, long N, long M, long K, double *C) {
   struct timeval before, after;
   gettimeofday(&before, NULL);
   for (int jk = 0; jk < N / bSize; ++jk) {
-    for (int ik = 0; ik < M / bSize; ++ik) {
+    for (int ik = 0; ik < K / bSize; ++ik) {
       for (int j = jk * bSize; j < jk * bSize + bSize; ++j) {
-        double *c = C + j * K;
+        double *c = C + j * M;
         for (int k = ik * bSize; k < ik * bSize + bSize; ++k) {
-          double *b = B + k * K;
-          __m256d a = _mm256_set1_pd(A[j * M + k]);
-          for (int i = 0; i < K; i += 4) {
+          double *b = B + k * M;
+          __m256d a = _mm256_set1_pd(A[j * K + k]);
+          for (int i = 0; i < M; i += 4) {
             _mm256_storeu_pd(c + i + 0,
                              _mm256_fmadd_pd(a, _mm256_loadu_pd(b + i + 0),
                                              _mm256_loadu_pd(c + i + 0)));
