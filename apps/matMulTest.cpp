@@ -45,7 +45,7 @@ class MatrixFixture : public ::testing::Test {
 TEST_F(MatrixFixture, test1) {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < M; j++) {
-      EXPECT_NEAR(reference[i * M + j], result[i * M + j], 1e-3)
+      EXPECT_NEAR(reference[i * M + j], result[i * M + j], 1e-1)
           << "Matrix differ at index [" << i << ", " << j << "]";
     }
   }
